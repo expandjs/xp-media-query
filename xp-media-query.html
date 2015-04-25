@@ -1,0 +1,135 @@
+<!--
+@license
+Copyright (c) 2015 The expand.js authors. All rights reserved.
+This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
+The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
+The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
+-->
+
+<!--
+This component is used to bind data to a CSS media query.
+It can be used in conjunction with xp-media-queries.
+
+@component xp-media-query
+@description This component is used to bind data to a CSS media query.
+
+@dependency polymer Polymer/polymer#^0.5
+@dependency expandjs ExpandJS/expandjs
+@dependency xp-slave-state ExpandJS/xp-slave-state
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../expandjs/expandjs.html">
+<link rel="import" href="../xp-slave-state/xp-slave-state.html">
+
+<polymer-element name="xp-media-query" constructor="XPMediaQueryElement" attributes="data matches query">
+
+    <template>
+        <style>
+            :host {
+                display: none !important;
+            }
+        </style>
+        <template context="{{}}" is="xp-slave-state" master="{{selector}}" masterTag="xp-media-queries"></template>
+    </template>
+
+    <script>
+        XPComponent({
+
+            /**
+             * Fired when the query's match state changes.
+             *
+             * @event xp-media-change
+             * @param {Element} firer
+             * @param {boolean} matches
+             * @bubbles
+             */
+
+            /*********************************************************************/
+
+            // PUBLISH
+            publish: {
+
+                /**
+                 * The media's data.
+                 *
+                 * @attribute data
+                 * @type *
+                 */
+                data: {reflect: false, value: null},
+
+                /**
+                 * If set to true, the current media is matched.
+                 *
+                 * @attribute matches
+                 * @type boolean
+                 * @default false
+                 * @readonly
+                 */
+                matches: {reflect: true, value: false},
+
+                /**
+                 * The CSS media query to evaluate.
+                 *
+                 * @attribute query
+                 * @type string
+                 * @default ""
+                 */
+                query: {reflect: true, value: ''}
+            },
+
+            /**
+             * The media query's matcher.
+             *
+             * @property matcher
+             * @type Object
+             * @readonly
+             * @private
+             */
+            matcher: null,
+
+            /**
+             * The parent selector.
+             *
+             * @property selector
+             * @type Element
+             * @readonly
+             */
+            selector: null,
+
+            /*********************************************************************/
+
+            // OBSERVER
+            queryChanged: function() {
+
+                // Vars
+                var self = this;
+
+                // Stop listening
+                if (self.matcher) { self.matcher.removeListener(self.handleQueryBinded); }
+
+                // Setting
+                self.matcher = window.matchMedia(self.query);
+                self.matcher.addListener(self.handleQueryBinded);
+
+                // Handling
+                self.handleQuery(self.matcher);
+            },
+
+            /*********************************************************************/
+
+            // LISTENER
+            ready: function () {
+                this.handleQueryBinded = this.handleQuery.bind(this);
+            },
+
+            /*********************************************************************/
+
+            // HANDLER
+            handleQuery: function (event) {
+                this.asyncFire('xp-media-change', {firer: this, matches: this.matches = event.matches});
+            }
+        });
+    </script>
+
+</polymer-element>

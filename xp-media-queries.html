@@ -1,0 +1,104 @@
+<!--
+@license
+Copyright (c) 2015 The expand.js authors. All rights reserved.
+This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
+The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
+The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
+-->
+
+<!--
+This component is used to switch between multiple media queries.
+It must be used in conjunction with xp-media-query.
+
+@component xp-media-queries
+@description This component is used to switch between multiple media queries.
+@mixin xp-targeter http://www.expandjs.com/components/xp-targeter
+
+@dependency polymer Polymer/polymer#^0.5
+@dependency expandjs ExpandJS/expandjs
+@dependency xp-master-state ExpandJS/xp-master-state
+@dependency xp-selected-state ExpandJS/xp-selected-state
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../expandjs/expandjs.html">
+<link rel="import" href="../xp-master-state/xp-master-state.html">
+<link rel="import" href="../xp-selected-state/xp-selected-state.html">
+<link rel="import" href="xp-media-query.html">
+
+<polymer-element name="xp-media-queries" constructor="XPMediaQueriesElement" attributes="queries selected selection target">
+
+    <template>
+        <style>
+            :host {
+                display: none !important;
+            }
+        </style>
+        <template context="{{}}" is="xp-master-state" id="xpMasterState" slaves="{{queries}}" slaveTag="xp-media-query"></template>
+        <template context="{{}}" is="xp-selected-state" id="xpSelectedState" items="{{queries}}"
+                  itemSelector="xp-media-query" selected="{{selected}}" selectedAttribute="matches"
+                  selection="{{selection}}" switchable="{{true}}" target="{{target}}"></template>
+        <content id="content"></content>
+    </template>
+
+    <script>
+        XPComponent({
+
+            // MIXINS
+            mixins: ['xp-targeter'],
+
+            /*********************************************************************/
+
+            // DELEGATES
+            eventDelegates: {
+                'on-xp-media-change': 'handleChange'
+            },
+
+            // PUBLISH
+            publish: {
+
+                /**
+                 * The slave queries.
+                 *
+                 * @attribute queries
+                 * @type Array
+                 * @readonly
+                 */
+                queries: {reflect: false, value: null},
+
+                /**
+                 * The selected query's index.
+                 *
+                 * @attribute routes
+                 * @type number
+                 */
+                selected: {reflect: false, value: null},
+
+                /**
+                 * The selected query.
+                 *
+                 * @attribute selection
+                 * @type Element
+                 * @readonly
+                 */
+                selection: {reflect: false, value: null},
+
+                /**
+                 * The `id` of the targeted element or the element itself.
+                 *
+                 * @attribute target
+                 * @type Element | string
+                 */
+                target: {reflect: false, value: null}
+            },
+
+            /*********************************************************************/
+
+            // HANDLER
+            handleChange: function (event) {
+                this.$.xpSelectedState[event.detail.matches ? 'select' : 'unselect'](event.detail.firer);
+            }
+        });
+    </script>
+
+</polymer-element>
