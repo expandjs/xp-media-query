@@ -1,7 +1,7 @@
 {
   "name": "xp-media-query",
   "license": "BSD-3-Clause",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "This element is used to bind data to a CSS media query.",
   "homepage": "http://www.expandjs.com/elements/xp-media-query",
   "authors": [
