@@ -46,6 +46,18 @@ It can be used in conjunction with xp-media-queries.
              * @bubbles
              */
 
+            /**
+             * Fired when the slave is attached.
+             *
+             * @event xp-slave
+             * @param {Element} firer
+             * @param {Element} slave
+             * @param {string} masterSelector
+             * @param {string} masterTag
+             * @param {boolean} isAttached
+             * @bubbles
+             */
+
             /*********************************************************************/
 
             // PUBLISH
@@ -107,11 +119,11 @@ It can be used in conjunction with xp-media-queries.
                 var self = this;
 
                 // Stop listening
-                if (self.matcher) { self.matcher.removeListener(self.handleQueryBinded); }
+                if (self.matcher) { self.matcher.removeListener(self.handleQueryBound); }
 
                 // Setting
                 self.matcher = window.matchMedia(self.query);
-                self.matcher.addListener(self.handleQueryBinded);
+                self.matcher.addListener(self.handleQueryBound);
 
                 // Handling
                 self.handleQuery(self.matcher);
@@ -121,7 +133,7 @@ It can be used in conjunction with xp-media-queries.
 
             // LISTENER
             ready: function () {
-                this.handleQueryBinded = this.handleQuery.bind(this);
+                this.handleQueryBound = this.handleQuery.bind(this);
             },
 
             /*********************************************************************/

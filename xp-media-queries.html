@@ -51,6 +51,34 @@ It must be used in conjunction with xp-media-query.
 
             /*********************************************************************/
 
+            /**
+             * Fired on item selection.
+             *
+             * @event xp-select
+             * @param {Element} firer
+             * @param {Element} item
+             * @param {number} index
+             * @param {boolean} isMulti
+             * @param {boolean} isSelected
+             * @param {boolean} isSwitchable
+             * @bubbles
+             * @cancelable
+             */
+
+            /**
+             * Fired when the selection changes.
+             *
+             * @event xp-selection-change
+             * @param {Element} firer
+             * @param {Array | Element} selection
+             * @param {Array | Element} selected
+             * @param {boolean} isMulti
+             * @param {boolean} isSwitchable
+             * @bubbles
+             */
+
+            /*********************************************************************/
+
             // DELEGATES
             eventDelegates: {
                 'on-xp-media-change': 'handleChange'
