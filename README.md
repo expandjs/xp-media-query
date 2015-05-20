@@ -1,3 +1,3 @@
 # xp-media-query
 
-See the [`documentation page`](http://www.expandjs.com/elements/xp-media-query) for more information.
+See the [`documentation page`](http://expandjs.com/elements/xp-media-query) for more information.
