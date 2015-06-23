@@ -16,12 +16,12 @@ It must be used in conjunction with xp-media-query.
 @group functionality
 @homepage http://expandjs.com/elements/xp-media-queries
 
-@behavior xp-selected-behavior http://expandjs.com/elements/xp-selected-behavior
+@behavior xp-selected-behavior http://expandjs.com/elements/xp-selected-behavior#0.9.1
 
-@dependency polymer Polymer/polymer
-@dependency expandjs ExpandJS/expandjs
-@dependency xp-master-state ExpandJS/xp-master-state
-@dependency xp-selected-behavior ExpandJS/xp-selected-behavior
+@dependency polymer Polymer/polymer#^1.0.4
+@dependency expandjs ExpandJS/expandjs#0.9.1
+@dependency xp-master-state ExpandJS/xp-master-state#0.9.1
+@dependency xp-selected-behavior ExpandJS/xp-selected-behavior#0.9.1
 -->
 
 <link rel="import" href="../polymer/polymer.html">
@@ -39,7 +39,7 @@ It must be used in conjunction with xp-media-query.
     </style>
 
     <template>
-        <xp-master-state id="xpMasterState" slaves="{{items}}" slave-tag="xp-media-query"></xp-master-state>
+        <template is="xp-master-state" id="xpMasterState" slaves="{{items}}" slave-tag="xp-media-query"></template>
         <content id="content"></content>
     </template>
 
@@ -66,6 +66,52 @@ It must be used in conjunction with xp-media-query.
             // LISTENERS
             listeners: {
                 'xp-media-change': '_handleChange'
+            },
+
+            // PROPERTIES
+            properties: {
+
+                /**
+                 * The selector used to recognize selectable items.
+                 * TODO Temporary webcomponents polyfill's fix for `hostAttributes`.
+                 *
+                 * @attribute item-selector
+                 * @type string
+                 * @default "xp-media-query"
+                 */
+                itemSelector: {
+                    reflectToAttribute: true,
+                    type: String,
+                    value: 'xp-media-query'
+                },
+
+                /**
+                 * The attribute set on selection.
+                 * TODO Temporary webcomponents polyfill's fix for `hostAttributes`.
+                 *
+                 * @attribute selected-attribute
+                 * @type string
+                 * @default "matched"
+                 */
+                selectedAttribute: {
+                    reflectToAttribute: true,
+                    type: String,
+                    value: 'matched'
+                },
+
+                /**
+                 * If set to true, the unselection is allowed even if not multi.
+                 * TODO Temporary webcomponents polyfill's fix for `hostAttributes`.
+                 *
+                 * @attribute switchable
+                 * @type boolean
+                 * @default true
+                 */
+                switchable: {
+                    reflectToAttribute: true,
+                    type: Boolean,
+                    value: true
+                }
             },
 
             /*********************************************************************/
