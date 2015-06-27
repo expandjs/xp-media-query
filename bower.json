@@ -1,7 +1,7 @@
 {
   "name": "xp-media-query",
   "license": "BSD-3-Clause",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "A custom element able to bind data to a CSS media query",
   "homepage": "http://expandjs.com/elements/xp-media-query",
   "authors": [
@@ -23,10 +23,10 @@
     "**/.*"
   ],
   "dependencies": {
-    "expandjs": "ExpandJS/expandjs#0.9.1",
-    "xp-master-state": "ExpandJS/xp-master-state#0.9.1",
-    "xp-selected-behavior": "ExpandJS/xp-selected-behavior#0.9.1",
-    "xp-slave-state": "ExpandJS/xp-slave-state#0.9.1",
+    "expandjs": "ExpandJS/expandjs#0.9.2",
+    "xp-master-state": "ExpandJS/xp-master-state#0.9.2",
+    "xp-selected-behavior": "ExpandJS/xp-selected-behavior#0.9.2",
+    "xp-slave-state": "ExpandJS/xp-slave-state#0.9.2",
     "polymer": "Polymer/polymer#^1.0.0"
   }
 }
