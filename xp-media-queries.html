@@ -20,13 +20,11 @@ It must be used in conjunction with xp-media-query.
 
 @dependency polymer Polymer/polymer#^1.0.0
 @dependency expandjs ExpandJS/expandjs#0.9.2
-@dependency xp-master-state ExpandJS/xp-master-state#0.9.2
 @dependency xp-selected-behavior ExpandJS/xp-selected-behavior#0.9.2
 -->
 
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../expandjs/expandjs.html">
-<link rel="import" href="../xp-master-state/xp-master-state.html">
 <link rel="import" href="../xp-selected-behavior/xp-selected-behavior.html">
 <link rel="import" href="xp-media-query.html">
 
@@ -39,7 +37,6 @@ It must be used in conjunction with xp-media-query.
     </style>
 
     <template>
-        <template is="xp-master-state" id="xpMasterState" slaves="{{items}}" slave-tag="xp-media-query"></template>
         <content id="content"></content>
     </template>
 

@@ -18,153 +18,125 @@ It can be used in conjunction with xp-media-queries.
 
 @dependency polymer Polymer/polymer#^1.0.0
 @dependency expandjs ExpandJS/expandjs#0.9.2
-@dependency xp-slave-state ExpandJS/xp-slave-state#0.9.2
 -->
 
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../expandjs/expandjs.html">
-<link rel="import" href="../xp-slave-state/xp-slave-state.html">
 
-<dom-module id="xp-media-query">
+<script>
+    Polymer({
 
-    <style>
-        :host {
-            display: none !important;
-        }
-    </style>
+        // ELEMENT
+        is: 'xp-media-query',
 
-    <template>
-        <template is="xp-slave-state" master="{{selector}}" master-tag="xp-media-queries"></template>
-    </template>
+        /*********************************************************************/
 
-    <script>
-        Polymer({
+        /**
+         * Fired when the query's match state changes.
+         *
+         * @event xp-media-change
+         * @param {Element} firer
+         * @param {boolean} matched
+         * @bubbles
+         */
 
-            // ELEMENT
-            is: 'xp-media-query',
+        /*********************************************************************/
 
-            /*********************************************************************/
+        // PROPERTIES
+        properties: {
 
             /**
-             * Fired when the query's match state changes.
+             * The media's data.
              *
-             * @event xp-media-change
-             * @param {Element} firer
-             * @param {boolean} matched
-             * @bubbles
+             * @attribute data
+             * @type *
+             * @notifies
              */
-
-            /*********************************************************************/
-
-            // PROPERTIES
-            properties: {
-
-                /**
-                 * The media's data.
-                 *
-                 * @attribute data
-                 * @type *
-                 * @notifies
-                 */
-                data: {
-                    notify: true,
-                    value: null
-                },
-
-                /**
-                 * The media query's matcher.
-                 *
-                 * @attribute matcher
-                 * @type Object
-                 * @notifies
-                 * @readonly
-                 */
-                matcher: {
-                    notify: true,
-                    readOnly: true,
-                    type: Object,
-                    value: null
-                },
-
-                /**
-                 * If set to true, the current media is matched.
-                 *
-                 * @attribute matched
-                 * @type boolean
-                 * @default false
-                 * @notifies
-                 * @readonly
-                 */
-                matched: {
-                    notify: true,
-                    readOnly: true,
-                    reflectToAttribute: true,
-                    type: Boolean,
-                    value: false
-                },
-
-                /**
-                 * The CSS media query to evaluate.
-                 *
-                 * @attribute query
-                 * @type string
-                 */
-                query: {
-                    observer: '_queryChanged',
-                    reflectToAttribute: true,
-                    type: String,
-                    value: null
-                },
-
-                /**
-                 * The parent selector.
-                 *
-                 * @attribute selector
-                 * @type Element
-                 * @notifies
-                 */
-                selector: {
-                    notify: true,
-                    value: null
-                }
+            data: {
+                notify: true,
+                value: null
             },
 
-            /*********************************************************************/
-
-            // OBSERVER
-            _queryChanged: function() {
-
-                // Vars
-                var self    = this,
-                    matcher = self.matcher;
-
-                // Setting
-                self._setMatcher(window.matchMedia(self.query));
-
-                // Listening
-                if (matcher) { matcher.removeListener(self._handleQueryBound); }
-                if (self.matcher) { self.matcher.addListener(self._handleQueryBound); }
-
-                // Handling
-                self._handleQuery(self.matcher);
+            /**
+             * The media query's matcher.
+             *
+             * @attribute matcher
+             * @type Object
+             * @notifies
+             * @readonly
+             */
+            matcher: {
+                notify: true,
+                readOnly: true,
+                type: Object,
+                value: null
             },
 
-            /*********************************************************************/
-
-            // LISTENER
-            created: function () {
-                this._handleQueryBound = this._handleQuery.bind(this);
+            /**
+             * If set to true, the current media is matched.
+             *
+             * @attribute matched
+             * @type boolean
+             * @default false
+             * @notifies
+             * @readonly
+             */
+            matched: {
+                notify: true,
+                readOnly: true,
+                reflectToAttribute: true,
+                type: Boolean,
+                value: false
             },
 
-            /*********************************************************************/
-
-            // HANDLER
-            _handleQuery: function (event) {
-                var self = this;
-                self._setMatched(event.matches);
-                XP.delay(function () { self.fire('xp-media-change', {firer: self, matched: self.matched}); });
+            /**
+             * The CSS media query to evaluate.
+             *
+             * @attribute query
+             * @type string
+             */
+            query: {
+                observer: '_queryChanged',
+                reflectToAttribute: true,
+                type: String,
+                value: null
             }
-        });
-    </script>
+        },
 
-</dom-module>
+        /*********************************************************************/
+
+        // OBSERVER
+        _queryChanged: function() {
+
+            // Vars
+            var self    = this,
+                matcher = self.matcher;
+
+            // Setting
+            self._setMatcher(window.matchMedia(self.query));
+
+            // Listening
+            if (matcher) { matcher.removeListener(self._handleQueryBound); }
+            if (self.matcher) { self.matcher.addListener(self._handleQueryBound); }
+
+            // Handling
+            self._handleQuery(self.matcher);
+        },
+
+        /*********************************************************************/
+
+        // LISTENER
+        created: function () {
+            this._handleQueryBound = this._handleQuery.bind(this);
+        },
+
+        /*********************************************************************/
+
+        // HANDLER
+        _handleQuery: function (event) {
+            var self = this;
+            self._setMatched(event.matches);
+            XP.delay(function () { self.fire('xp-media-change', {firer: self, matched: self.matched}); });
+        }
+    });
+</script>
