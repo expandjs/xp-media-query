@@ -17,11 +17,11 @@ It must be used in conjunction with xp-media-query.
 @group functionality
 @homepage http://expandjs.com/elements/xp-media-queries
 
-@behavior xp-selected-behavior http://expandjs.com/elements/xp-selected-behavior
+@behavior xp-selected-behavior /bower_components/xp-selected-behavior/xp-selected-behavior.html
 
 @dependency polymer Polymer/polymer#^1.0.0
-@dependency expandjs ExpandJS/expandjs#0.9.4
-@dependency xp-selected-behavior ExpandJS/xp-selected-behavior#0.9.4
+@dependency expandjs ExpandJS/expandjs#0.9.5
+@dependency xp-selected-behavior ExpandJS/xp-selected-behavior#0.9.5
 -->
 
 <link rel="import" href="../polymer/polymer.html">
@@ -72,8 +72,6 @@ It must be used in conjunction with xp-media-query.
                 /**
                  * The selector used to recognize selectable items.
                  *
-                 * TODO Temporary webcomponents polyfill's fix for `hostAttributes`.
-                 *
                  * @attribute item-selector
                  * @type string
                  * @default "xp-media-query"
@@ -87,8 +85,6 @@ It must be used in conjunction with xp-media-query.
                 /**
                  * The attribute set on selection.
                  *
-                 * TODO Temporary webcomponents polyfill's fix for `hostAttributes`.
-                 *
                  * @attribute selected-attribute
                  * @type string
                  * @default "matched"
@@ -101,8 +97,6 @@ It must be used in conjunction with xp-media-query.
 
                 /**
                  * If set to true, the unselection is allowed even if not multi.
-                 *
-                 * TODO Temporary webcomponents polyfill's fix for `hostAttributes`.
                  *
                  * @attribute switchable
                  * @type boolean
