@@ -19,7 +19,7 @@ It can be used in conjunction with xp-media-queries.
 @repository https://github.com/ExpandJS/xp-media-query
 
 @dependency polymer Polymer/polymer#^1.1.0
-@dependency expandjs ExpandJS/expandjs#0.9.10
+@dependency expandjs ExpandJS/expandjs#0.9.11
 -->
 
 <link rel="import" href="../polymer/polymer.html">
@@ -118,8 +118,8 @@ It can be used in conjunction with xp-media-queries.
             self._setMatcher(window.matchMedia(self.query));
 
             // Listening
-            if (matcher) { matcher.removeListener(self._handleQueryBound); }
-            if (self.matcher) { self.matcher.addListener(self._handleQueryBound); }
+            if (matcher) { matcher.removeListener(self._handleQuery); }
+            if (self.matcher) { self.matcher.addListener(self._handleQuery); }
 
             // Handling
             self._handleQuery(self.matcher);
@@ -129,7 +129,12 @@ It can be used in conjunction with xp-media-queries.
 
         // LISTENER
         created: function () {
-            this._handleQueryBound = this._handleQuery.bind(this);
+
+            // Vars
+            var self = this;
+
+            // Binding
+            self._handleQuery = self._handleQuery.bind(self);
         },
 
         /*********************************************************************/
