@@ -7,32 +7,34 @@ The complete set of contributors may be found at https://expandjs.github.io/CONT
 -->
 
 <!--
-This element is used to switch between multiple media queries.
+A custom element used to switch between multiple media queries.
 
-It must be used in conjunction with xp-media-query.
+It must be used in conjunction with
+[xp-media-query](http://expandjs.com/elements/xp-media-query).
 
 @element xp-media-queries
-@description A custom element able to manage multiple CSS media query
-@keywords web app, html5, expandjs, web-components
+@description A custom element used to switch between multiple media queries.
+@keywords expandjs, web app, custom elements, web-components
 @group functionality
+
 @homepage http://expandjs.com/elements/xp-media-queries
 @repository https://github.com/ExpandJS/xp-media-queries
 
-@behavior xp-selected-behavior /bower_components/xp-selected-behavior/xp-selected-behavior.html
+@behavior xp-selector-behavior /bower_components/xp-selector/xp-selector-behavior.html
 
-@dependency polymer Polymer/polymer#^1.1.0
-@dependency expandjs ExpandJS/expandjs#0.9.11
-@dependency xp-selected-behavior ExpandJS/xp-selected-behavior#0.9.11
+@dependency polymer Polymer/polymer#^1.2.0
+@dependency expandjs ExpandJS/expandjs#0.10.0
+@dependency xp-selector ExpandJS/xp-selector#0.10.0
 -->
 
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../expandjs/expandjs.html">
-<link rel="import" href="../xp-selected-behavior/xp-selected-behavior.html">
+<link rel="import" href="../xp-selector/xp-selector-behavior.html">
 <link rel="import" href="xp-media-query.html">
 
 <dom-module id="xp-media-queries">
 
-    <template>
+    <template strip-whitespace>
 
         <style>
             :host {
@@ -40,7 +42,7 @@ It must be used in conjunction with xp-media-query.
             }
         </style>
 
-        <content id="content"></content>
+        <content></content>
 
     </template>
 
@@ -52,17 +54,10 @@ It must be used in conjunction with xp-media-query.
 
             // BEHAVIORS
             behaviors: [
-                Polymer.XPSelectedBehavior
+                Polymer.XPSelectorBehavior
             ],
 
             /*********************************************************************/
-
-            // ATTRIBUTES
-            hostAttributes: {
-                'item-selector': 'xp-media-query',
-                'selected-attribute': 'matched',
-                'switchable': true
-            },
 
             // LISTENERS
             listeners: {
@@ -73,16 +68,15 @@ It must be used in conjunction with xp-media-query.
             properties: {
 
                 /**
-                 * The selector used to recognize selectable items.
+                 * The selector used to recognize items.
                  *
                  * @attribute item-selector
                  * @type string
-                 * @default "xp-media-query"
+                 * @default ".media-query"
                  */
                 itemSelector: {
-                    reflectToAttribute: true,
                     type: String,
-                    value: 'xp-media-query'
+                    value: '.media-query'
                 },
 
                 /**
@@ -93,7 +87,6 @@ It must be used in conjunction with xp-media-query.
                  * @default "matched"
                  */
                 selectedAttribute: {
-                    reflectToAttribute: true,
                     type: String,
                     value: 'matched'
                 },
@@ -104,6 +97,7 @@ It must be used in conjunction with xp-media-query.
                  * @attribute switchable
                  * @type boolean
                  * @default true
+                 * @notifies
                  */
                 switchable: {
                     reflectToAttribute: true,
@@ -116,6 +110,8 @@ It must be used in conjunction with xp-media-query.
 
             // HANDLER
             _handleChange: function (event) {
+
+                // Selecting
                 this[event.detail.matched ? 'select' : 'unselect'](event.detail.firer);
             }
         });

@@ -7,19 +7,21 @@ The complete set of contributors may be found at https://expandjs.github.io/CONT
 -->
 
 <!--
-This element is used to bind data to a CSS media query.
+A custom element used to bind data to a CSS media query.
 
-It can be used in conjunction with xp-media-queries.
+It can be used in conjunction with
+[xp-media-queries](http://expandjs.com/elements/xp-media-queries).
 
 @element xp-media-query
-@description A custom element able to bind data to a CSS media query
-@keywords web app, html5, expandjs, web-components
+@description A custom element used to bind data to a CSS media query
+@keywords expandjs, web app, custom elements, web-components
 @group functionality
+
 @homepage http://expandjs.com/elements/xp-media-query
 @repository https://github.com/ExpandJS/xp-media-query
 
-@dependency polymer Polymer/polymer#^1.1.0
-@dependency expandjs ExpandJS/expandjs#0.9.11
+@dependency polymer Polymer/polymer#^1.2.0
+@dependency expandjs ExpandJS/expandjs#0.10.0
 -->
 
 <link rel="import" href="../polymer/polymer.html">
@@ -48,15 +50,14 @@ It can be used in conjunction with xp-media-queries.
         properties: {
 
             /**
-             * The media's data.
+             * The media query's data.
              *
              * @attribute data
              * @type *
              * @notifies
              */
             data: {
-                notify: true,
-                value: null
+                notify: true
             },
 
             /**
@@ -69,13 +70,11 @@ It can be used in conjunction with xp-media-queries.
              */
             matcher: {
                 notify: true,
-                readOnly: true,
-                type: Object,
-                value: null
+                readOnly: true
             },
 
             /**
-             * If set to true, the current media is matched.
+             * If set to true, the current media query is matched.
              *
              * @attribute matched
              * @type boolean
@@ -99,9 +98,7 @@ It can be used in conjunction with xp-media-queries.
              */
             query: {
                 observer: '_queryChanged',
-                reflectToAttribute: true,
-                type: String,
-                value: null
+                type: String
             }
         },
 
@@ -133,6 +130,9 @@ It can be used in conjunction with xp-media-queries.
             // Vars
             var self = this;
 
+            // Classifying
+            self.classList.add('media-query');
+
             // Binding
             self._handleQuery = self._handleQuery.bind(self);
         },
@@ -141,9 +141,15 @@ It can be used in conjunction with xp-media-queries.
 
         // HANDLER
         _handleQuery: function (event) {
+
+            // Vars
             var self = this;
+
+            // Setting
             self._setMatched(event.matches);
-            XP.delay(function () { self.fire('xp-media-change', {firer: self, matched: self.matched}); });
+
+            // Firing
+            XP.delay(self.fire.bind(self, 'xp-media-change', {firer: self, matched: self.matched}));
         }
     });
 </script>
