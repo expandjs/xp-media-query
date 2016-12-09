@@ -1,3 +1,3 @@
 # xp-media-query
 
-See the [`documentation page`](http://expandjs.com/elements/xp-media-query) for more information.
+This repository has been merged into [`xp-elements`](https://github.com/expandjs/xp-elements).
